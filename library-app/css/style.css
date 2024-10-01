@@ -1,0 +1,101 @@
+/* Palheta de cores para o site: */
+/* https://colorhunt.co/palette/800000982b1cdad4b5f2e8c6  */
+
+:root {
+  --white: #faf7f0;
+  --gray: #d8d2c2;
+  --brown: #b17457;
+  --lightbrown: #b99470;
+  --black: #4a4947;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--lightbrown);
+}
+
+form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form {
+  border-radius: 10px;
+  box-shadow: 12px 12px 2px 1px rgb(92, 91, 91, 0.2);
+}
+
+.form-legend {
+  background-color: var(--brown);
+  padding: 1rem;
+  border-radius: 10px 10px 0 0;
+}
+
+.form-div {
+  border-radius: 0 0 10px 10px;
+  background-color: var(--white);
+}
+
+.input-div {
+  display: flex;
+  padding: 1rem;
+}
+
+.input-svg {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background-color: var(--gray);
+  border-radius: 5px 0 0 5px;
+  border: 1px solid gray;
+}
+
+.input-svg svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.input input {
+  padding: 5px;
+  height: 40px;
+  outline: none;
+  border-left: none;
+  border-radius: 0 5px 5px 0;
+  border: 1px solid gray;
+}
+
+.input input[placeholder] {
+  user-select: none;
+}
+
+.submit-div {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  width: 90%;
+  margin-bottom: 1rem;
+  background-color: var(--lightbrown);
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+}
+
+.submit:hover {
+  background-color: #c7a079;
+}
+
+.hidden {
+  display: none;
+}
