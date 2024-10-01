@@ -17,7 +17,11 @@
 </head>
 <style>
   p {
-    margin-left: 1rem;
+    margin-left: 0.3rem;
+  }
+
+  .form {
+    width: 25%;
   }
 </style>
 
@@ -40,7 +44,7 @@
         </div>
         <!-- TAG: Name Input -->
         <div class="input">
-          <input type="text" name="name" placeholder="&nbsp;name" id="" />
+          <input type="text" name="name" placeholder="&nbsp;name" id="" required />
         </div>
       </div>
       <!-- TAG: Email -->
@@ -56,7 +60,7 @@
         </div>
         <!-- TAG: Email Input -->
         <div class="input">
-          <input type="Email" name="email" placeholder="&nbsp;Email" id="" />
+          <input type="Email" name="email" placeholder="&nbsp;Email" id="" required />
         </div>
       </div>
       <!-- TAG: Password -->
@@ -78,7 +82,7 @@
         </div>
         <!-- TAG: Password Input -->
         <div class="input">
-          <input type="password" name="password" placeholder="&nbsp;password" id="psw--input" />
+          <input type="password" name="password" placeholder="&nbsp;password" id="psw--input" required />
         </div>
       </div>
       <!-- Register link -->

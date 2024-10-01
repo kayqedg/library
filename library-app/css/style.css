@@ -37,16 +37,19 @@ form {
   background-color: var(--brown);
   padding: 1rem;
   border-radius: 10px 10px 0 0;
+  text-align: center;
 }
 
 .form-div {
   border-radius: 0 0 10px 10px;
   background-color: var(--white);
+  padding-inline: 2rem;
 }
 
 .input-div {
   display: flex;
-  padding: 1rem;
+  margin-top: 2rem;
+  justify-content: center;
 }
 
 .input-svg {
@@ -65,9 +68,14 @@ form {
   transform: translate(-50%, -50%);
 }
 
+.input {
+  width: 100%;
+}
+
 .input input {
   padding: 5px;
   height: 40px;
+  width: 100%;
   outline: none;
   border-left: none;
   border-radius: 0 5px 5px 0;
