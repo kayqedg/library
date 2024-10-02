@@ -14,7 +14,7 @@ CREATE TABLE clientes (
     nome varchar(50),
     email varchar(255),
     senha varchar(100),
-    cpf varchar (14) UNIQUE
+    cpf varchar (11) UNIQUE
 );
 
 CREATE TABLE livros (

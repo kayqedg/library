@@ -1,3 +1,19 @@
+<?php
+
+
+if (isset($_POST['submit'])) {
+  include_once('config.php');
+  $nome = $_POST['name'];
+  $email = $_POST['email'];
+  $senha = $_POST['password'];
+  $cpf = $_POST['cpf'];
+
+  $result = $conexao->query("INSERT INTO clientes(nome, email, senha, cpf) 
+  VALUES ('$nome', '$email', '$senha', '$cpf')");
+  echo "<script>alert('usuário registrado!')</script>";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +42,7 @@
 </style>
 
 <body>
-  <form action="register.php" method="post" class="form">
+  <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form">
     <!-- TAG: TITLE -->
 
     <div class="form-legend">
@@ -44,7 +60,22 @@
         </div>
         <!-- TAG: Name Input -->
         <div class="input">
-          <input type="text" name="name" placeholder="&nbsp;name" id="" required />
+          <input type="text" name="name" placeholder="&nbsp;name" required />
+        </div>
+      </div>
+      <!-- TAG: CPF -->
+      <div class="input-div">
+        <div class="input-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-person-vcard-fill" viewBox="0 0 16 16">
+            <path
+              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5M9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8m1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5m-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96q.04-.245.04-.5M7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0" />
+          </svg>
+        </div>
+        <!-- TAG: CPF Input -->
+        <div class="input">
+          <input type="text" name="cpf" placeholder="&nbsp;CPF" id="cpf--input" minlength="11" maxlength="11"
+            required />
         </div>
       </div>
       <!-- TAG: Email -->
@@ -60,7 +91,7 @@
         </div>
         <!-- TAG: Email Input -->
         <div class="input">
-          <input type="Email" name="email" placeholder="&nbsp;Email" id="" required />
+          <input type="Email" name="email" placeholder="&nbsp;email" required />
         </div>
       </div>
       <!-- TAG: Password -->
@@ -89,12 +120,13 @@
       <p>Already a member? <a href="../index.php">Login now!</a></p>
       <!-- Submit -->
       <div class="submit-div">
-        <input type="submit" value="Enter" class="submit" />
+        <input type="submit" name="submit" id="submit" value="Enter" class="submit" />
       </div>
     </div>
   </form>
 </body>
 <script>
+  // TAG: Configuração do botão mostrar senha
   const pswInput = document.getElementById('psw--input');
   const eyeOpen = document.getElementById('eye--open');
   const eyeClosed = document.getElementById('eye--closed');
@@ -119,6 +151,16 @@
       pswInput.type = 'password';
     }
   });
+
+  // Configuração do input de CPF para aceitar apenas números
+
+  const cpfInput = document.getElementById('cpf--input');
+
+  cpfInput.onkeydown = function (e) {
+    if (isNaN(e.key) && e.key !== 'Backspace') {
+      e.preventDefault();
+    }
+  }
 </script>
 
 </html>
