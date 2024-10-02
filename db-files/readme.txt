@@ -1,0 +1,1 @@
+NOTA: O modelo conceitual pode não estar de acordo com o lógico, assim como o lógico também não está de acordo com o fisíco, já que eu apenas utilizei esses modelos para auxiliar no desenvolvimento
