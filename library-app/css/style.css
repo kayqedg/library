@@ -107,3 +107,45 @@ form {
 .hidden {
   display: none;
 }
+
+/*-- NAVBAR --*/
+
+.system-div {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 100vh;
+}
+
+.system-nav {
+  height: 100%;
+  position: fixed;
+  background-color: var(--brown);
+  top: 0;
+  left: 0;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.system-nav a {
+  text-decoration: none;
+  font-size: 2rem;
+  padding: 8px 32px 8px 20px;
+  color: var(--white);
+}
+
+.system-nav a:hover {
+  color: var(--gray);
+}
+
+.system-content {
+  background-color: var(--lightbrown);
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  text-align: center;
+}

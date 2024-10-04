@@ -1,0 +1,4 @@
+// Clientes
+
+INSERT INTO clientes(nome, email, senha, cpf, nivel) 
+VALUES ('admin', 'admin@email.com', '123456', '00000000000', 'admin');
