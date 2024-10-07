@@ -118,14 +118,15 @@ form {
 }
 
 .system-nav {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
   position: fixed;
+  height: 100%;
   background-color: var(--brown);
   top: 0;
   left: 0;
   padding-top: 40px;
-  display: flex;
-  flex-direction: column;
+  margin-right: 2rem;
 }
 
 .system-nav a {
@@ -142,8 +143,8 @@ form {
 .system-content {
   background-color: var(--lightbrown);
   text-align: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 .title {

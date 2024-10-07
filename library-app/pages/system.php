@@ -42,7 +42,7 @@ $password = $_SESSION["password"];
         <div class="system-nav">
             <a href=""><img src="" alt="">Dashboard</a>
             <a href=""><img src="" alt="">Dashboard</a>
-            <a href=""><img src="" alt="">Dashboard</a>
+            <a href="shop.php"><img src="" alt="">Comprar</a>
             <a href=""><img src="" alt="">Dashboard</a>
             <a href=""><img src="" alt="">Dashboard</a>
         </div>
