@@ -1,4 +1,3 @@
-DROP database library_app;
 CREATE DATABASE library_app;
 USE library_app;
 
@@ -21,6 +20,7 @@ CREATE TABLE clientes (
 CREATE TABLE livros (
 	id_livro int NOT NULL PRIMARY KEY auto_increment,
     fk_editora int,
+    foto varchar(50),
     nome_livro varchar(50),
     autor varchar(50),
     categoria varchar(20),

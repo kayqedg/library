@@ -150,3 +150,8 @@ form {
 .title {
   text-align: center;
 }
+
+/* TOOLS */
+.hidden {
+  display: none;
+}
