@@ -1,9 +1,15 @@
 <?php
-include_once('config.php');
 
-$sql = 'SELECT * FROM LIVROS';
+session_start();
 
-$result = $conexao->query($sql);
+if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
+    include_once('config.php');
+    $sql = 'SELECT * FROM LIVROS';
+
+    $result = $conexao->query($sql);
+} else {
+    header('location: ../index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -114,7 +120,7 @@ $result = $conexao->query($sql);
 <body>
     <main class="system-div-2">
         <div class="system-nav-2">
-            <a href=""><img src="" alt="">Dashboard</a>
+            <a href="system.php"><img src="" alt="">Sistema</a>
             <a href=""><img src="" alt="">Dashboard</a>
             <a href="shop.php"><img src="" alt="">Comprar</a>
             <a href=""><img src="" alt="">Dashboard</a>
@@ -125,7 +131,7 @@ $result = $conexao->query($sql);
 
                 <?php
                 while ($data = $result->fetch_assoc()) {
-                    echo "<a href='system.php' class='prod-anchor'>
+                    echo "<a href='purchase.php?id=$data[id_livro]' class='prod-anchor'>
                     <div class='prod-box'>
                     <img class='prod-img' src='../images/$data[foto]' alt=''>
                     <div class='prod-data'>

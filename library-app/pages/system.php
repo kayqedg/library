@@ -2,9 +2,13 @@
 
 session_start();
 
-$name = $_SESSION["name"];
-$password = $_SESSION["password"];
+if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
+    $name = $_SESSION["name"];
+    $password = $_SESSION["password"];
+} else {
+    header('location: ../index.php');
+}
 // echo $password;
 // echo '<br>';
 // echo $name;
@@ -40,7 +44,7 @@ $password = $_SESSION["password"];
 <body>
     <main class='system-div'>
         <div class="system-nav">
-            <a href=""><img src="" alt="">Dashboard</a>
+            <a href="system.php"><img src="" alt="">Sistema</a>
             <a href=""><img src="" alt="">Dashboard</a>
             <a href="shop.php"><img src="" alt="">Comprar</a>
             <a href=""><img src="" alt="">Dashboard</a>
@@ -50,6 +54,7 @@ $password = $_SESSION["password"];
 
             <h1 class="title">Library</h1>
             <h2 class="title">Seja bem vindo <?php echo $name ?></h2>
+            <a href="exit.php" class="btn btn-danger">Sair</a>
         </div> <br>
 
     </main>
