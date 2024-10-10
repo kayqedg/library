@@ -64,6 +64,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         object-fit: cover;
     }
 
+    .item-data {
+        height: 100%;
+        width: 100%;
+    }
+
     .item-name {
         color: black;
     }
