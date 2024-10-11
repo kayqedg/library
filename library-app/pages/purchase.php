@@ -18,7 +18,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=], initial-scale=1.0">
-    <title>Document</title>
+    <title>Library - Compra</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
@@ -27,6 +27,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <style>
@@ -82,8 +83,22 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         font-size: 18px;
     }
 
-    .btn-success {
+    .item-purchase {
         float: right;
+        padding: 2px;
+    }
+
+    .input-quantity {
+        border: 2px solid black;
+        width: 3rem;
+        border-radius: 5px;
+    }
+
+    .purchase-form {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        gap: 2px;
     }
 </style>
 
@@ -98,11 +113,34 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 <p class="item-author-year"><?php echo $data['autor'] . ' | ' . $data['ano_public']; ?></p>
                 <p class="item-genre"><?php echo $data['categoria']; ?></p>
                 <p class="item-isbn"><?php echo 'ISBN: ' . $data['ISBN'] ?></p>
-                <p class="item-value"><?php echo 'R$' . $data['valor'] ?></>
-                    <button class="btn btn-success">Comprar</button>
+                <p class="item-value"><?php echo 'R$' . $data['valor'] ?>
+                <p class="item-quantity"><?php echo 'Estoque: ' . $data['qtd_estoque'] ?></p>
+                <div class="item-purchase">
+                    <form action="order.php" method="post" class="purchase-form">
+                        <input class="input-quantity" min="1" max="<?php echo $data['qtd_estoque'] ?>" value="1"
+                            type="number" name="book_quantity" id="">
+                        <input type="text" name="id_book" value="<?php echo $data['id_livro'] ?> " hidden>
+                        <input type="submit" name="submit" id="submit" value="Comprar" class="btn btn-success">
+                        <p id='max--value' class="hidden" style><?php echo $data['qtd_estoque'] ?></p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </body>
+<script>
+    const qtdCompra = document.querySelector('.input-quantity');
+    const maxValue = document.getElementById('max--value');
+
+    qtdCompra.addEventListener('blur', function () {
+        if (qtdCompra.value > Number(maxValue.textContent)) {
+            qtdCompra.value = Number(maxValue.textContent)
+        }
+
+        if (qtdCompra.value < 1) {
+            qtdCompra.value = 1
+        }
+    })
+</script>
 
 </html>

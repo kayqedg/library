@@ -51,7 +51,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     .products-div {
         display: grid;
         grid-template-columns: repeat(4, 200px);
-        grid-gap: 10px;
+        /* gap: 30px; */
+        column-gap: 18px;
+        row-gap: 25px;
         grid-auto-rows: minmax(250px, auto);
         margin-top: 1rem;
 
@@ -68,13 +70,14 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         padding-top: 5px;
         background-color: var(--brown);
         height: 100%;
-        transition: 0.5s;
+        transition: 0.4s;
+        transition-timing-function: ease-out;
     }
 
     .prod-box:hover {
         transform: scale(1.1);
         /* box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2); */
-        box-shadow: 0px 0px 0px 0px white inset, 5px 5px 5px rgba(0, 0, 0, 0.7);
+        box-shadow: 0px 0px 0px 0px white inset, 5px 5px 5px rgba(0, 0, 0, 0.4);
 
     }
 
@@ -87,6 +90,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
     .prod-data {
         color: white;
+        padding: 5px;
     }
 
     /* --- TESTE --- */

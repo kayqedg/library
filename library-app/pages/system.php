@@ -3,9 +3,18 @@
 session_start();
 
 if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
+    include_once('config.php');
 
     $name = $_SESSION["name"];
     $password = $_SESSION["password"];
+
+    $sql = "SELECT id_cliente FROM clientes WHERE nome = '$name'";
+    $result = $conexao->query($sql);
+    $data = $result->fetch_assoc();
+    $_SESSION['id_user'] = $data["id_cliente"];
+
+    $id_user = $_SESSION["id_user"];
+
 } else {
     header('location: ../index.php');
 }
@@ -54,6 +63,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
             <h1 class="title">Library</h1>
             <h2 class="title">Seja bem vindo <?php echo $name ?></h2>
+            <!-- <p><?php echo $id_user ?></p> -->
             <a href="exit.php" class="btn btn-danger">Sair</a>
         </div> <br>
 
