@@ -126,12 +126,14 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
 <body>
     <main class="system-div-2">
-        <div class="system-nav-2">
-            <a href="system.php"><img src="" alt="">Sistema</a>
-            <a href=""><img src="" alt="">Dashboard</a>
-            <a href="shop.php"><img src="" alt="">Comprar</a>
-            <a href=""><img src="" alt="">Dashboard</a>
-            <a href=""><img src="" alt="">Dashboard</a>
+        <div class="system-nav">
+            <a href="system.php"> Sistema</a>
+            <a href="" class="<?php levelVerify($user_level) ?>">
+                Dashboard
+            </a>
+            <a href="shop.php"> Loja</a>
+            <a href=""> Histórico</a>
+            <a href=""> Dashboard</a>
         </div>
         <div class="system-content-2">
             <div class="products-div">

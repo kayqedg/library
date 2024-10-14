@@ -115,6 +115,8 @@ form {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
+  width: 75%;
+  float: right;
 }
 
 .system-nav {
@@ -122,6 +124,7 @@ form {
   flex-direction: column;
   position: fixed;
   height: 100%;
+  width: 25%;
   background-color: var(--brown);
   top: 0;
   left: 0;
@@ -153,5 +156,5 @@ form {
 
 /* TOOLS */
 .hidden {
-  display: none;
+  display: none !important;
 }
