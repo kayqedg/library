@@ -13,6 +13,17 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && isset($_POST['su
     $resultBook = $conexao->query($sqlBook);
     $dataBook = $resultBook->fetch_assoc();
 
+    $valorTotal = number_format((float) $dataBook['valor'] * $book_quantity, 2, '.', '');
+
+    $sqlPedido = "INSERT INTO pedidos (fk_cliente, fk_livro, qtd, valor) 
+    VALUES
+    ('$id_user', '$id_book', '$book_quantity', '$valorTotal')
+    ";
+
+    $resultPedido = $conexao->query($sqlPedido);
+
+
+
 
 } else {
     header('location: ../index.php');
@@ -106,10 +117,12 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && isset($_POST['su
                 <p class="item-author-year"><?php echo $dataBook['autor'] . ' | ' . $dataBook['ano_public']; ?></p>
                 <p class="item-genre"><?php echo $dataBook['categoria']; ?></p>
                 <p class="item-isbn"><?php echo 'ISBN: ' . $dataBook['ISBN'] ?></p>
-                <!-- TAG: AQUI DEVERÁ SER MOSTRADO O VALOR COMPLETO DA COMPRA -->
-                <p class="item-value"><?php echo 'R$' . $dataBook['valor'] ?>
+                <p class="item-value">Valor unitário: <?php echo 'R$' . $dataBook['valor'] ?>
+                    <!-- TAG: AQUI DEVERÁ SER MOSTRADO O VALOR COMPLETO DA COMPRA -->
+                <p class="item-value">Valor total:
+                    <?php echo 'R$' . $valorTotal ?>
                     <!-- TAG: A FAZER -->
-                <p>QUANTIDADE COMPRADA</p>
+                <p>Quantidade: <?php echo $book_quantity ?></p>
                 <!-- ----- -->
                 <div class="item-purchase">
                 </div>

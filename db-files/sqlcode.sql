@@ -37,8 +37,9 @@ CREATE TABLE pedidos (
     fk_livro int,
     qtd int,
     valor DECIMAL(7, 2),
-    data_pedido DATETIME,
-    FOREIGN KEY (fk_cliente) REFERENCES clientes(id_cliente)
+    data_pedido DATETIME DEFAULT current_timestamp,
+    FOREIGN KEY (fk_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (fk_livro) REFERENCES livros(id_livro)
 );
 
 CREATE TABLE movimento (
@@ -59,7 +60,7 @@ BEGIN
     UPDATE livros
     SET qtd_estoque = qtd_estoque + NEW.qtd_movimentada
     WHERE id_livro = NEW.fk_livro;
-END;
+END; //
 
 CREATE TRIGGER atualiza_estoque_pedido
 AFTER INSERT ON pedidos
@@ -68,7 +69,7 @@ BEGIN
     UPDATE livros
     SET qtd_estoque = qtd_estoque - NEW.qtd
     WHERE id_livro = NEW.fk_livro;
-END;
+END; //
 
 
 DELIMITER ;

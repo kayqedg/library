@@ -1,9 +1,9 @@
-// Clientes
+-- Clientes
 
 INSERT INTO clientes(nome, email, senha, cpf, nivel) 
 VALUES ('admin', 'admin@email.com', '123456', '00000000000', 'admin');
 
-// Editora
+-- Editora
 
 INSERT INTO editora (nome, email, contato) 
 VALUES 
@@ -12,7 +12,7 @@ VALUES
 ('Editora Gama', 'suporte@editoragama.com', '11999996666'),
 ('Editora Delta', 'contato@editoradelta.com', '11999995555');
 
-// Livros
+-- Livros
 
 INSERT INTO livros (fk_editora, foto, nome_livro, autor, categoria, ISBN, ano_public, valor, qtd_estoque) 
 VALUES 
