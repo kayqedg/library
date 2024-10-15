@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
         </div>
       </div>
       <!-- Register link -->
-      <p>Not a member? <a href="pages/register.php">Signup now!</a></p>
+      <p>Não é um membro? <a href="pages/register.php">Registre-se!</a></p>
       <!-- Submit -->
       <div class="submit-div">
         <input type="submit" name="submit" id="submit" value="Enter" class="submit" />

@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Library</title>
+  <title>Register - Library</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
     integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous" />
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
@@ -37,7 +37,9 @@ if (isset($_POST['submit'])) {
   }
 
   .form {
-    width: 25%;
+    width: 25vw;
+    height: 80vh;
+    box-shadow: 12px 12px 2px 1px rgb(92, 91, 91, 0.2);
   }
 </style>
 
@@ -46,7 +48,7 @@ if (isset($_POST['submit'])) {
     <!-- TAG: TITLE -->
 
     <div class="form-legend">
-      <h2>Register - Library</h2>
+      <h2>Registrar - Library</h2>
     </div>
     <!-- TAG: FORM -->
     <div class="form-div">
@@ -117,7 +119,7 @@ if (isset($_POST['submit'])) {
         </div>
       </div>
       <!-- Register link -->
-      <p>Already a member? <a href="../index.php">Login now!</a></p>
+      <p>Já é membro? <a href="../index.php">Entre!</a></p>
       <!-- Submit -->
       <div class="submit-div">
         <input type="submit" name="submit" id="submit" value="Enter" class="submit" />

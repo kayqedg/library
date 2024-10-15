@@ -68,11 +68,13 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     }
 
     .table-row-0 {
-        background-color: #F5F5F7;
+        background-color: #ffffff;
     }
 
     .table-row-1 {
-        background-color: #B7B7B7;
+        background-color: #F5F5F7;
+        /* background-color: #B7B7B7; */
+        /* background-color: #dbdbd9; */
     }
 
     .btn {
@@ -80,7 +82,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     }
 
     .confirm-modal {
-        z-index: 3;
+        z-index: 6;
         position: absolute;
         background-color: white;
         left: 50%;
@@ -179,15 +181,17 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                             d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
                                     </svg></button> -->
                         <?php
+                        $classSwitch = 0;
                         while ($data_table = $resultTable->fetch_assoc()) {
-                            echo "<tr class='table-row-0'>";
+
+                            echo "<tr class='table-row-" . $classSwitch . "'>";
                             echo "<th scope='row'>$data_table[id_cliente]</th>";
                             echo "<td>$data_table[nome]</td>";
                             echo "<td>$data_table[email]</td>";
                             echo "<td>$data_table[cpf]</td>";
                             echo "<td>$data_table[nivel]</td>";
                             echo "<td>";
-                            echo "<a href='edit.php?id=$data_table[id_cliente]' class='btn btn-sm btn-primary'>
+                            echo "<a href='edituser.php?id=$data_table[id_cliente]' class='btn btn-sm btn-primary'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
                                         class='bi bi-pencil-square' viewBox='0 0 16 16'>
                                         <path
@@ -203,27 +207,53 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                     </svg></button>";
                             echo "</td>";
                             echo "</tr>";
-                        }
-                        ?>
 
-                        <!-- TESTE JANELA MODAL -->
-                        <div class="confirm-overlay hidden">
-                            <div class="confirm-modal">
+                            // if ($data_table['id_cliente'] > 1) {
+                        
+                            echo "
+                            <div class='confirm-overlay hidden'> 
+                            <div class='confirm-modal'>
                                 <h1>Deletar Usuário</h1>
                                 <hr>
-                                <div class="modal-content">
+                                <div class='modal-content'>
                                     <p>&emsp;Você tem certeza de que deseja deletar esse usuário? Note que esta ação não
                                         poderá
                                         ser
                                         revertida!</p>
                                 </div>
                                 <hr>
-                                <div class="modal-btns">
-                                    <button class="btn btn-success btn-back">Voltar</button>
-                                    <a class="btn btn-danger btn-confirm-delete">Deletar</a>
+                                <div class='modal-btns'>
+                                    <button class='btn btn-success btn-back'>Voltar</button>
+                                    <a href='deleteuser.php?id=$data_table[id_cliente]' class='btn btn-danger btn-confirm-delete'>Deletar</a>
                                 </div>
                             </div>
-                        </div>
+                        </div>";
+                            // }
+                        
+
+
+                            $classSwitch == 0 ? $classSwitch = 1 : $classSwitch = 0;
+                        }
+                        ?>
+
+                        <!-- TESTE JANELA MODAL -->
+                        <!-- <div class='confirm-overlay hidden'> 
+                            <div class='confirm-modal'>
+                                <h1>Deletar Usuário</h1>
+                                <hr>
+                                <div class='modal-content'>
+                                    <p>&emsp;Você tem certeza de que deseja deletar esse usuário? Note que esta ação não
+                                        poderá
+                                        ser
+                                        revertida!</p>
+                                </div>
+                                <hr>
+                                <div class='modal-btns'>
+                                    <button class='btn btn-success btn-back'>Voltar</button>
+                                    <a href='deleteuser.php?id=' class='btn btn-danger btn-confirm-delete'>Deletar</a>
+                                </div>
+                            </div>
+                        </div> -->
             </div>
             </tbody>
             </table>
@@ -237,23 +267,27 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
 <script>
     const modal = document.querySelector('.confirm-modal');
-    const overlay = document.querySelector('.confirm-overlay');
-    const btnBack = document.querySelector('.btn-back');
+    const overlays = document.querySelectorAll('.confirm-overlay');
+    const btnsBack = document.querySelectorAll('.btn-back');
     const btnsDelete = document.querySelectorAll('.btn-delete');
     const btnConfirm = document.querySelector('.btn-confirm-delete');
 
     // ERROR: Falta finalizar 
-    btnBack.addEventListener('click', function () {
-        overlay.classList.remove('hidden')
-    })
 
-    overlay.addEventListener('click', function () {
-        overlay.classList.add('hidden')
-    })
-    btnBack.addEventListener('click', function () {
-        overlay.classList.add('hidden')
+    // overlay.addEventListener('click', function () {
+    //     overlay.classList.add('hidden')
+    // })
+    for (let i = 0; i < btnsBack.length; i++)
+        btnsBack[i].addEventListener('click', function () {
+            overlays[i].classList.add('hidden');
+        }
+        )
+
+    for (let i = 0; i < btnsDelete.length; i++) {
+        btnsDelete[i].addEventListener('click', function () {
+            overlays[i].classList.remove('hidden')
+        });
     }
-    )
 </script>
 
 </html>
