@@ -5,8 +5,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     include_once('config.php');
     $id = $_GET['id'];
     $sql = "SELECT * FROM clientes WHERE id_cliente='$id'";
+    $result = $conexao->query($sql);
     if ($result->num_rows > 0) {
-        $result = $conexao->query($sql);
         $data = $result->fetch_assoc();
     }
 
@@ -141,8 +141,12 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 <label for="admin">Administrador</label>
             </div>
 
+            <!-- ID input (hidden) -->
+            <input type="hidden" name="user-id" value="<?php echo $data['id_cliente'] ?>">
 
-            <!-- Register link -->
+
+
+            <!-- Go Back link -->
             <p style="padding-left: 25px;"><a href="system.php">Voltar &lt;-</a></p>
             <!-- Submit -->
             <div class="submit-div">
