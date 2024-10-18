@@ -4,6 +4,7 @@ session_start();
 
 if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     include_once('config.php');
+    require_once('functions.php');
     $sql = 'SELECT * FROM LIVROS';
 
     $result = $conexao->query($sql);
@@ -128,11 +129,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <main class="system-div-2">
         <div class="system-nav">
             <a href="system.php"> Sistema</a>
-            <a href="" class="<?php levelVerify($user_level) ?>">
+            <a href="" class="<?php echo levelVerify($user_level) ?>">
                 Dashboard
             </a>
             <a href="shop.php"> Loja</a>
-            <a href=""> Histórico</a>
+            <a href="history.php"> Histórico</a>
             <a href=""> Dashboard</a>
         </div>
         <div class="system-content-2">

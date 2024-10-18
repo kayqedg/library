@@ -135,7 +135,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 Dashboard
             </a>
             <a href="shop.php"> Loja</a>
-            <a href=""> Histórico</a>
+            <a href="history.php"> Histórico</a>
             <a href=""> Dashboard</a>
         </div>
         <div class="system-content">
@@ -254,9 +254,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                 </div>
                             </div>
                         </div> -->
+                    </tbody>
+                </table>
             </div>
-            </tbody>
-            </table>
         </div>
         </div> <br>
         <!-- AQUI DEVERÁ SER MOSTRADO TODAS AS CONTAS ATIVAS -->
@@ -272,11 +272,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     const btnsDelete = document.querySelectorAll('.btn-delete');
     const btnConfirm = document.querySelector('.btn-confirm-delete');
 
-    // ERROR: Falta finalizar 
-
-    // overlay.addEventListener('click', function () {
-    //     overlay.classList.add('hidden')
-    // })
     for (let i = 0; i < btnsBack.length; i++)
         btnsBack[i].addEventListener('click', function () {
             overlays[i].classList.add('hidden');
