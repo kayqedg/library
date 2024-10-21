@@ -44,7 +44,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library - Home</title>
-    <link rel="stylesheet" href="../css/style.css">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
@@ -53,6 +53,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <style>
@@ -138,7 +139,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="history.php"> Histórico</a>
             <a href=""> Dashboard</a>
         </div>
-        <div class="system-content">
+        <main class="system-content">
 
             <h1 class="title">Library</h1>
             <h2 class="title">Seja bem vindo <?php echo $name ?></h2>
@@ -257,7 +258,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </main>
         </div> <br>
         <!-- AQUI DEVERÁ SER MOSTRADO TODAS AS CONTAS ATIVAS -->
         <!-- SE O USUÁRIO FOR DE NÍVEL --ADMIN-- -->

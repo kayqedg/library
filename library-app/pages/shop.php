@@ -57,6 +57,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         row-gap: 25px;
         grid-auto-rows: minmax(250px, auto);
         margin-top: 1rem;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 2rem;
 
     }
 
@@ -93,40 +96,10 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         color: white;
         padding: 5px;
     }
-
-    /* --- TESTE --- */
-    .system-div-2 {
-        display: flex;
-        flex-direction: row;
-        margin-bottom: 2rem;
-    }
-
-    .system-nav-2 {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        height: 100%;
-        background-color: var(--brown);
-        top: 0;
-        left: 0;
-        padding-top: 40px;
-        margin-right: 1rem;
-    }
-
-    .system-nav-2 a {
-        text-decoration: none;
-        font-size: 2rem;
-        padding: 8px 32px 8px 20px;
-        color: var(--white);
-    }
-
-    .system-content-2 {
-        height: 100%;
-    }
 </style>
 
 <body>
-    <main class="system-div-2">
+    <main class="system-div">
         <div class="system-nav">
             <a href="system.php"> Sistema</a>
             <a href="" class="<?php echo levelVerify($user_level) ?>">
@@ -136,7 +109,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="history.php"> Histórico</a>
             <a href=""> Dashboard</a>
         </div>
-        <div class="system-content-2">
+        <div class="system-content">
             <div class="products-div">
 
                 <?php
