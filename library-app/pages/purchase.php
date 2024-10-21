@@ -13,11 +13,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=], initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library - Compra</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
         integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
@@ -31,6 +31,14 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 </head>
 
 <style>
+    :root {
+        --white: #faf7f0;
+        --gray: #d8d2c2;
+        --brown: #b17457;
+        --lightbrown: #b99470;
+        --black: #4a4947;
+    }
+
     body {
         background-color: rgb(250, 247, 240);
     }
@@ -100,6 +108,31 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         flex-direction: row;
         gap: 2px;
     }
+
+    /* MODAL */
+    .overlay {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.3);
+        height: 100%;
+        width: 100%;
+        z-index: 2;
+        backdrop-filter: blur(10px);
+    }
+
+    .modal-win {
+        border-radius: 5px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        background-color: var(--white);
+        padding: 1rem;
+    }
+
+    .btn {
+        float: right;
+    }
 </style>
 
 <body>
@@ -127,10 +160,35 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             </div>
         </div>
     </div>
+
+    <div class="overlay hidden">
+        <div class="modal-win">
+            <h1 class="modal-h1">Produto Esgotado</h1>
+            <hr>
+            <p class="modal-txt">Que pena! O livro <?php echo $data['nome_livro'] ?> está esgotado. Por favor, espere
+                mais alguns dias
+                até repormos o
+                estoque.</p>
+            <hr>
+            <a href="shop.php" class="btn btn-success">Voltar para loja</a>
+        </div>
+    </div>
+
 </body>
 <script>
+    const submit = document.getElementById('submit')
     const qtdCompra = document.querySelector('.input-quantity');
     const maxValue = document.getElementById('max--value');
+    const overlay = document.querySelector('.overlay');
+    const form = document.querySelector('.purchase-form')
+
+    if (Number(maxValue.textContent) === 0) {
+
+        qtdCompra.setAttribute("disabled", true);
+        submit.setAttribute("disabled", true)
+        overlay.classList.remove('hidden')
+    }
+
 
     qtdCompra.addEventListener('blur', function () {
         if (qtdCompra.value > Number(maxValue.textContent)) {

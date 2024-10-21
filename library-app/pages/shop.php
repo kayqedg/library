@@ -65,6 +65,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
     .prod-anchor {
         text-decoration: none;
+        height: 100%;
+        width: 100%;
     }
 
     .prod-box {
@@ -79,6 +81,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     }
 
     .prod-box:hover {
+        width: 100%;
+        height: 100%;
         transform: scale(1.1);
         /* box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.2); */
         box-shadow: 0px 0px 0px 0px white inset, 5px 5px 5px rgba(0, 0, 0, 0.4);
@@ -96,6 +100,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         color: white;
         padding: 5px;
     }
+
+    .prod-name {
+        white-space: wrap;
+        word-wrap: break-word;
+    }
 </style>
 
 <body>
@@ -111,6 +120,16 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         </div>
         <div class="system-content">
             <div class="products-div">
+
+                <a href='purchase.php?id=$data[id_livro]' class='prod-anchor'>
+                    <div class='prod-box'>
+                        <img class='prod-img' src='../images/1984.png' alt=''>
+                        <div class='prod-data'>
+                            <h3 class='prod-name'>$data[nome_livro]aaaaaaaaaaaaaaaaaaaaaaaa</h3>
+                            <p class='prod-value'>R$ $data[valor]</p>
+                        </div>
+                    </div>
+                </a>
 
                 <?php
                 while ($data = $result->fetch_assoc()) {
@@ -130,5 +149,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         </div>
     </main>
 </body>
+
+<script>
+</script>
 
 </html>
