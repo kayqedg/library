@@ -59,7 +59,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         margin-top: 1rem;
         align-items: center;
         justify-content: center;
-        padding-bottom: 2rem;
+        padding-block: 2rem;
 
     }
 
@@ -99,11 +99,18 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     .prod-data {
         color: white;
         padding: 5px;
+        display: grid;
     }
 
     .prod-name {
+        padding-inline: 5px;
+        inline-size: 200px;
         white-space: wrap;
         word-wrap: break-word;
+    }
+
+    .prod-value {
+        position: sticky;
     }
 </style>
 
@@ -111,25 +118,15 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <main class="system-div">
         <div class="system-nav">
             <a href="system.php"> Sistema</a>
-            <a href="" class="<?php echo levelVerify($user_level) ?>">
+            <a href="" class="<?php echo levelVerify($_SESSION['user_level']) ?>">
                 Dashboard
             </a>
             <a href="shop.php"> Loja</a>
             <a href="history.php"> Histórico</a>
-            <a href=""> Dashboard</a>
+            <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Estoque</a>
         </div>
         <div class="system-content">
             <div class="products-div">
-
-                <a href='purchase.php?id=$data[id_livro]' class='prod-anchor'>
-                    <div class='prod-box'>
-                        <img class='prod-img' src='../images/1984.png' alt=''>
-                        <div class='prod-data'>
-                            <h3 class='prod-name'>$data[nome_livro]aaaaaaaaaaaaaaaaaaaaaaaa</h3>
-                            <p class='prod-value'>R$ $data[valor]</p>
-                        </div>
-                    </div>
-                </a>
 
                 <?php
                 while ($data = $result->fetch_assoc()) {

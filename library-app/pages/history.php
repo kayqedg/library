@@ -108,18 +108,18 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <main class='system-div'>
         <div class="system-nav">
             <a href="system.php"> Sistema</a>
-            <a href="" class="<?php echo levelVerify($user_level) ?>">
+            <a href="" class="<?php echo levelVerify($_SESSION['user_level']) ?>">
                 Dashboard
             </a>
             <a href="shop.php"> Loja</a>
             <a href="history.php"> Histórico</a>
-            <a href=""> Dashboard</a>
+            <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Estoque</a>
         </div>
         <div class="system-content">
 
             <h1 class="title">Histórico</h1>
             <br><br>
-            <h1>Seus Pedidos:</h1>
+            <h1 class="<?php echo levelVerify($_SESSION['user_level']) ?>">Seus Pedidos:</h1>
             <br>
 
             <?php

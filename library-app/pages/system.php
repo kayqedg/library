@@ -63,6 +63,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         padding: 0;
     }
 
+    /* 
     .table {
         background-color: #939185;
         margin-right: 10rem;
@@ -74,9 +75,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
     .table-row-1 {
         background-color: #F5F5F7;
-        /* background-color: #B7B7B7; */
-        /* background-color: #dbdbd9; */
-    }
+    } */
 
     .btn {
         margin-inline: 2px;
@@ -132,12 +131,12 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     <main class='system-div'>
         <div class="system-nav">
             <a href="system.php"> Sistema</a>
-            <a href="" class="<?php echo levelVerify($user_level) ?>">
+            <a href="" class="<?php echo levelVerify($_SESSION['user_level']) ?>">
                 Dashboard
             </a>
             <a href="shop.php"> Loja</a>
             <a href="history.php"> Histórico</a>
-            <a href=""> Dashboard</a>
+            <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Estoque</a>
         </div>
         <main class="system-content">
 
