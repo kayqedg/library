@@ -107,7 +107,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
     .confirm-overlay {
         z-index: 2;
-        position: absolute;
+        position: fixed;
         background-color: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(4px);
         width: 100%;
