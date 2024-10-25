@@ -72,7 +72,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         --black: #4a4947;
     }
 
-
+    .table {
+        border-radius: 5px;
+    }
 
     .table-img {
         width: 75px;
