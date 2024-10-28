@@ -3,25 +3,16 @@
 INSERT INTO clientes(nome, email, senha, cpf, nivel) 
 VALUES ('admin', 'admin@email.com', '123456', '00000000000', 'admin');
 
--- Editora
-
-INSERT INTO editora (nome, email, contato) 
-VALUES 
-('Editora Alfa', 'contato@editoraalfa.com', '11999998888'),
-('Editora Beta', 'info@editorabeta.com', '11999997777'),
-('Editora Gama', 'suporte@editoragama.com', '11999996666'),
-('Editora Delta', 'contato@editoradelta.com', '11999995555');
-
 -- Livros
 
-INSERT INTO livros (fk_editora, foto, nome_livro, autor, categoria, ISBN, ano_public, valor, qtd_estoque) 
+INSERT INTO livros (foto, nome_livro, autor, categoria, ISBN, ano_public, valor, qtd_estoque) 
 VALUES 
-(1, 'osenhor.png', 'O Senhor dos Anéis', 'J.R.R. Tolkien', 'Fantasia', '9781234567890', '1954', 59.90, 100),
-(2, '1984.png', '1984', 'George Orwell', 'Ficção Científica', '9780451524935', '1949', 39.90, 50),
-(3, 'domquixote.png', 'Dom Quixote', 'Miguel de Cervantes', 'Clássico', '9788437604947', '1605', 49.90, 30),
-(4, 'opequeno.png', 'O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Infantil', '9780156012195', '1943', 29.90, 200),
-(1, 'arevolucao.png', 'A Revolução dos Bichos', 'George Orwell', 'Ficção', '9780451526342', '1945', 34.90, 120),
-(3, 'guerraepaz.png', 'Guerra e Paz', 'Liev Tolstói', 'Clássico', '9780679405733', '1869', 79.90, 10),
-(2, '451.png', 'Fahrenheit 451', 'Ray Bradbury', 'Distopia', '9781451673319', '1953', 44.90, 60),
-(4, 'mobydick.png', 'Moby Dick', 'Herman Melville', 'Aventura', '9781503280786', '1851', 54.90, 70);
+('osenhor.png', 'O Senhor dos Anéis', 'J.R.R. Tolkien', 'Fantasia', '9781234567890', '1954', 59.90, 100),
+('1984.png', '1984', 'George Orwell', 'Ficção Científica', '9780451524935', '1949', 39.90, 50),
+('domquixote.png', 'Dom Quixote', 'Miguel de Cervantes', 'Clássico', '9788437604947', '1605', 49.90, 30),
+('opequeno.png', 'O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Infantil', '9780156012195', '1943', 29.90, 200),
+('arevolucao.png', 'A Revolução dos Bichos', 'George Orwell', 'Ficção', '9780451526342', '1945', 34.90, 120),
+('guerraepaz.png', 'Guerra e Paz', 'Liev Tolstói', 'Clássico', '9780679405733', '1869', 79.90, 10),
+('451.png', 'Fahrenheit 451', 'Ray Bradbury', 'Distopia', '9781451673319', '1953', 44.90, 60),
+('mobydick.png', 'Moby Dick', 'Herman Melville', 'Aventura', '9781503280786', '1851', 54.90, 70);
 

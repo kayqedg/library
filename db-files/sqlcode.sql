@@ -1,12 +1,6 @@
 CREATE DATABASE library_app;
 USE library_app;
 
-CREATE TABLE editora (
-	id_editora INT NOT NULL PRIMARY KEY auto_increment,
-	nome varchar(50),
-    email varchar(255),
-    contato varchar(15)
-);
 
 CREATE TABLE clientes (
 	id_cliente int NOT NULL PRIMARY KEY auto_increment,
@@ -19,7 +13,6 @@ CREATE TABLE clientes (
 
 CREATE TABLE livros (
 	id_livro int NOT NULL PRIMARY KEY auto_increment,
-    fk_editora int,
     foto varchar(50),
     nome_livro varchar(50),
     autor varchar(50),
@@ -27,8 +20,7 @@ CREATE TABLE livros (
     ISBN varchar(13),
     ano_public varchar(4),
     valor DECIMAL(7, 2),
-    qtd_estoque int CHECK (qtd_estoque >= 0),
-    FOREIGN KEY (fk_editora) REFERENCES editora(id_editora)
+    qtd_estoque int CHECK (qtd_estoque >= 0)
 );
 
 CREATE TABLE pedidos (
@@ -38,8 +30,10 @@ CREATE TABLE pedidos (
     qtd int,
     valor DECIMAL(7, 2),
     data_pedido DATETIME DEFAULT current_timestamp,
-    FOREIGN KEY (fk_cliente) REFERENCES clientes(id_cliente),
+    FOREIGN KEY (fk_cliente) REFERENCES clientes(id_cliente)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (fk_livro) REFERENCES livros(id_livro)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE movimento (
@@ -49,6 +43,7 @@ CREATE TABLE movimento (
     motivo varchar(255),
     data_movimento DATETIME DEFAULT current_timestamp,
     FOREIGN KEY (fk_livro) REFERENCES livros(id_livro)
+    ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 DELIMITER //
