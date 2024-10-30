@@ -87,9 +87,10 @@
                 <input type="text" name="" id="public-year" maxlength="4"> <br>
                 <label for="value">Valor:</label> <br>
                 <!-- NOTE: Criar uma máscara para valores monetários aqui -->
-                <input type="text" name="value" id="price"> <br>
+                <input type="text" name="value" id="price" data-prefix="R$ " data - thousands="," data - decimal=".">
+                <br>
                 <label for="qtd_estoque">Estoque:</label> <br>
-                <input type="number" name="" id=""> <br> <br>
+                <input type="number" name="" id="stock" min="0"> <br> <br>
                 <input type="submit" value="Cadastrar" class="btn">
             </fieldset>
         </form>
@@ -99,6 +100,16 @@
     const inputPrice = document.getElementById('price')
     const inputYear = document.getElementById('public-year');
     const inputIsbn = document.getElementById('isbn');
+    const stock = document.getElementById('stock')
+
+    // TOOLS
+    const now = new Date();
+    const year = now.getFullYear();
+    //
+
+    stock.addEventListener('blur', () => {
+        stock.value < 0 ? stock.value = 0 : stock.value = stock.value
+    })
 
     inputPrice.addEventListener('keypress', e => {
         if (isNaN(e.key)) {
@@ -114,6 +125,13 @@
     inputyear.addEventListener('keypress', e => {
         if (isNaN(e.key)) {
             e.preventDefault();
+        }
+    })
+
+    // ERROR: TENTAR FAZER ISSO FUNCIONAR
+    inputYear.addEventListener('blur', () => {
+        if (inputYear.value > year + 1) {
+            inputYear = year;
         }
     })
 
@@ -134,6 +152,13 @@
             }
         }
     });
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+<script>
+    $('#price').maskMoney();
 </script>
 
 </html>

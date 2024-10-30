@@ -9,7 +9,27 @@
     <fieldset>
       <legend>Border</legend>
       <input type="text" name="isbn" id="isbn" maxlength="17" />
+      <div class="input_renda">
+        <h3 class="textfield_label">$0.00</h3>
+        <div class="material-textfield">
+          <input
+            type="text"
+            name="currency-field"
+            id="currencyfield"
+            value=""
+            data-type="currency"
+            placeholder=" $1,000,000.00"
+          />
+        </div>
+      </div>
+      <input
+        type="text"
+        id="meuDinheiro"
+        data-thousands="."
+        data-decimal=","
+        data-prefix="R$ "
+      />
     </fieldset>
   </body>
-  <script></script>
+ 
 </html>
