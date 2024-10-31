@@ -1,4 +1,40 @@
-<?php ?>
+<?php
+session_start();
+
+if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
+    if (isset($_POST['submit'])) {
+        include_once('config.php');
+        $uploaddir = "../images/";
+        $uploadfile = $uploaddir . basename($_FILES['cover']['name']);
+
+        echo '<pre>';
+        if (move_uploaded_file($_FILES['cover']['tmp_name'], $uploadfile)) {
+            // $file_name = $_FILES['cover']['name'];
+            // $book_title = $_POST['title'];
+            // $author = $_POST['author'];
+            // $genre = $_POST['genre'];
+            // $isbn = $_POST['isbn'];
+            // $public_year = $_POST['public-year'];
+            // $price = $_POST['price'];
+            // $stock = $_POST['stock'];
+            // $sql = "INSERT INTO livros(foto, nome_livro, autor, categoria, isbn, ano_public, valor, qtd_estoque)
+            // VALUES ($file_name, $book_title, $author, $genre, $isbn, $public_year, $price, $stock)";
+
+        } else {
+            echo "alert(Possible file upload attack!\n)";
+        }
+        echo 'Here is some more debugging info:';
+        print_r($_FILES);
+        unset($_POST);
+        unset($_FILES);
+        print "</pre>";
+
+    }
+} else {
+    header('location: ../index.php');
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +103,12 @@
 
 <body>
     <main>
-        <form action="bookregister.php">
+        <form enctype="multipart/form-data" action="bookregister.php" method="post">
             <fieldset style="border-color:black !important; border-style:solid !important">
                 <legend>Cadastro de Livro</legend>
                 <label for="cover">Capa do livro:</label> <br>
-                <input type="file" name="cover" id=""> <br> <br>
+                <input type="file" id="book--cover" name="cover" accept="image/png, image/jpeg" />
+                <br> <br>
                 <label for="title">Título do livro:</label> <br>
                 <input type="text" name="title" id=""> <br>
                 <label for="author">Autor do livro:</label> <br>
@@ -84,14 +121,14 @@
                 <input type="text" name="isbn" id="isbn" placeholder="***-*-****-****-*"> <br>
                 <label for="public-year">Ano de publicação:</label> <br>
                 <!-- NOTE: Configurar para gerar automaticamente diversos anos -->
-                <input type="text" name="" id="public-year" maxlength="4"> <br>
+                <input type="text" name="public-year" id="public-year" maxlength="4"> <br>
                 <label for="value">Valor:</label> <br>
                 <!-- NOTE: Criar uma máscara para valores monetários aqui -->
                 <input type="text" name="value" id="price" data-prefix="R$ " data - thousands="," data - decimal=".">
                 <br>
                 <label for="qtd_estoque">Estoque:</label> <br>
-                <input type="number" name="" id="stock" min="0"> <br> <br>
-                <input type="submit" value="Cadastrar" class="btn">
+                <input type="number" name="stock" id="stock" min="0"> <br> <br>
+                <input type="submit" name="submit" value="Cadastrar" class="btn">
             </fieldset>
         </form>
     </main>
@@ -122,7 +159,7 @@
         }
     })
 
-    inputyear.addEventListener('keypress', e => {
+    inputYear.addEventListener('keypress', e => {
         if (isNaN(e.key)) {
             e.preventDefault();
         }
@@ -131,7 +168,7 @@
     // ERROR: TENTAR FAZER ISSO FUNCIONAR
     inputYear.addEventListener('blur', () => {
         if (inputYear.value > year + 1) {
-            inputYear = year;
+            inputYear.value = "";
         }
     })
 
@@ -151,7 +188,24 @@
                 inputIsbn.value += '-';
             }
         }
+
     });
+
+    inputIsbn.addEventListener('blur', e => {
+        let unformatted = inputIsbn.value.split('-').join('');
+        let formatted = ''
+        unformatted.split('').forEach((element, i) => {
+            if (i === 3 || i === 4 || i === 8 || i === 12) {
+                formatted += '-';
+            }
+            formatted += element;
+
+            console.log(formatted);
+
+
+        });
+        inputIsbn.value = formatted;
+    })
 
 
 </script>
