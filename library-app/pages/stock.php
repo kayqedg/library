@@ -157,7 +157,12 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             </a>
             <a href="shop.php"> Loja</a>
             <a href="history.php"> Histórico</a>
-            <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Estoque</a>
+            <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">
+                Estoque
+            </a>
+            <a href="demands.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">
+                Pedidos
+            </a>
         </div>
         <div class="system-content">
             <table class="table">

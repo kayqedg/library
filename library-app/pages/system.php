@@ -137,8 +137,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="shop.php"> Loja</a>
             <a href="history.php"> Histórico</a>
             <a href="stock.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Estoque</a>
+            <a href="demands.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Pedidos</a>
         </div>
-        <main class="system-content">
+        <div class="system-content">
 
             <h1 class="title">Library</h1>
             <h2 class="title">Seja bem vindo <?php echo $name ?></h2>
@@ -257,7 +258,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                     </tbody>
                 </table>
             </div>
-        </main>
+        </div>
         </div> <br>
         <!-- AQUI DEVERÁ SER MOSTRADO TODAS AS CONTAS ATIVAS -->
         <!-- SE O USUÁRIO FOR DE NÍVEL --ADMIN-- -->
