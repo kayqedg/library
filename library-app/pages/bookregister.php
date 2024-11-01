@@ -5,28 +5,38 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     if (isset($_POST['submit'])) {
         include_once('config.php');
         $uploaddir = "../images/";
+
+        $_POST['isbn'] = implode('', explode("-", $_POST['isbn']));
+        $_POST['value'] = str_replace(',', '', substr($_POST['value'], 3));
+
+        $file_name = $_FILES['cover']['name'];
+        $book_title = $_POST['title'];
+        $author = $_POST['author'];
+        $genre = $_POST['genre'];
+        $isbn = $_POST['isbn'];
+        $public_year = $_POST['public-year'];
+        $price = $_POST['value'];
+        $stock = $_POST['stock'];
+
         $uploadfile = $uploaddir . basename($_FILES['cover']['name']);
 
         echo '<pre>';
         if (move_uploaded_file($_FILES['cover']['tmp_name'], $uploadfile)) {
-            // $file_name = $_FILES['cover']['name'];
-            // $book_title = $_POST['title'];
-            // $author = $_POST['author'];
-            // $genre = $_POST['genre'];
-            // $isbn = $_POST['isbn'];
-            // $public_year = $_POST['public-year'];
-            // $price = $_POST['price'];
-            // $stock = $_POST['stock'];
-            // $sql = "INSERT INTO livros(foto, nome_livro, autor, categoria, isbn, ano_public, valor, qtd_estoque)
-            // VALUES ($file_name, $book_title, $author, $genre, $isbn, $public_year, $price, $stock)";
 
+            $sql = "INSERT INTO
+             livros(foto, nome_livro, autor, categoria, isbn, ano_public, valor, qtd_estoque)
+            VALUES ('$file_name', '$book_title', '$author', '$genre', '$isbn', '$public_year', '$price', '$stock')";
+
+            $result = $conexao->query($sql);
+
+            header('location: pageupdate.php?local=bookregister.php');
         } else {
-            echo "alert(Possible file upload attack!\n)";
+            echo "alert(Possible file upload attack!)";
         }
-        echo 'Here is some more debugging info:';
-        print_r($_FILES);
-        unset($_POST);
-        unset($_FILES);
+        // echo 'Here is some more debugging info:';
+        // print_r($_FILES);
+        // unset($_POST);
+        // unset($_FILES);
         print "</pre>";
 
     }
@@ -107,27 +117,29 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <fieldset style="border-color:black !important; border-style:solid !important">
                 <legend>Cadastro de Livro</legend>
                 <label for="cover">Capa do livro:</label> <br>
-                <input type="file" id="book--cover" name="cover" accept="image/png, image/jpeg" />
+                <input type="file" id="book--cover" name="cover" accept="image/png, image/jpeg, image/jpg" required />
                 <br> <br>
                 <label for="title">Título do livro:</label> <br>
-                <input type="text" name="title" id=""> <br>
+                <input type="text" name="title" id="" required> <br>
                 <label for="author">Autor do livro:</label> <br>
-                <input type="text" name="author" id=""> <br>
+                <input type="text" name="author" id="" required> <br>
                 <label for="genre">Gênero do livro:</label> <br>
                 <!-- NOTE: gerar de algum modo um arquivo que salve gêneros (ver JSON) e implantar os dados em um html select -->
-                <input type="text" name="genre" id=""> <br>
+                <input type="text" name="genre" id="" required> <br>
                 <label for="isbn">ISBN:</label> <br>
                 <!-- NOTE: Criar uma máscara para ISBN aqui (opcional porém recomendado) -->
-                <input type="text" name="isbn" id="isbn" placeholder="***-*-****-****-*"> <br>
+                <input type="text" name="isbn" id="isbn" placeholder="***-*-****-****-*" required> <br>
                 <label for="public-year">Ano de publicação:</label> <br>
                 <!-- NOTE: Configurar para gerar automaticamente diversos anos -->
-                <input type="text" name="public-year" id="public-year" maxlength="4"> <br>
+                <input type="text" name="public-year" id="public-year" maxlength="4" required> <br>
                 <label for="value">Valor:</label> <br>
                 <!-- NOTE: Criar uma máscara para valores monetários aqui -->
-                <input type="text" name="value" id="price" data-prefix="R$ " data - thousands="," data - decimal=".">
+                <input type="text" name="value" id="price" data-prefix="R$ " data - thousands="," data - decimal="."
+                    required>
                 <br>
                 <label for="qtd_estoque">Estoque:</label> <br>
-                <input type="number" name="stock" id="stock" min="0"> <br> <br>
+                <input type="number" name="stock" id="stock" min="0" required> <br> <br>
+                <a href="stock.php">Voltar</a> <br> <br>
                 <input type="submit" name="submit" value="Cadastrar" class="btn">
             </fieldset>
         </form>
@@ -165,7 +177,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         }
     })
 
-    // ERROR: TENTAR FAZER ISSO FUNCIONAR
     inputYear.addEventListener('blur', () => {
         if (inputYear.value > year + 1) {
             inputYear.value = "";

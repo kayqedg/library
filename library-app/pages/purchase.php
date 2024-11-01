@@ -2,11 +2,16 @@
 include_once("config.php");
 session_start();
 
+
 if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM livros WHERE id_livro = '$id'";
     $result = $conexao->query($sql);
-    $data = $result->fetch_assoc();
+    if ($result->num_rows > 0) {
+        $data = $result->fetch_assoc();
+    } else {
+        header('location: shop.php');
+    }
 } else {
     header('location: ../index.php');
 }

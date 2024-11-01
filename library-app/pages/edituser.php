@@ -8,6 +8,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     $result = $conexao->query($sql);
     if ($result->num_rows > 0) {
         $data = $result->fetch_assoc();
+    } else {
+        header('location: system.php');
     }
 
 } else {
@@ -50,6 +52,10 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         padding-left: 15px;
         font-size: 17px;
     }
+
+    .disabled {
+        background-color: #e6e5e3;
+    }
 </style>
 
 <body>
@@ -71,7 +77,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 </div>
                 <!-- TAG: Name Input -->
                 <div class="input">
-                    <input type="text" name="name" placeholder="&nbsp;name" value="<?php echo $data['nome'] ?>" <?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?> required />
+                    <input type="text" name="name" placeholder="&nbsp;name" value="<?php echo $data['nome'] ?>" <?php echo $data['id_cliente'] == 1 ? 'readonly' : '' ?>
+                        class="<?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?>" required />
                 </div>
             </div>
             <!-- TAG: CPF -->
@@ -86,8 +93,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 <!-- TAG: CPF Input -->
                 <div class="input">
                     <input type="text" name="cpf" placeholder="&nbsp;CPF" id="cpf--input" minlength="11" maxlength="11"
-                        value="<?php echo $data['cpf'] ?>" <?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?>
-                        required />
+                        value="<?php echo $data['cpf'] ?>" <?php echo $data['id_cliente'] == 1 ? 'readonly' : '' ?>
+                        class="<?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?>" required />
                 </div>
             </div>
             <!-- TAG: Email -->
@@ -104,7 +111,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 <!-- TAG: Email Input -->
                 <div class="input">
                     <input type="Email" name="email" placeholder="&nbsp;email" value="<?php echo $data['email'] ?>"
-                        <?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?> required />
+                        <?php echo $data['id_cliente'] == 1 ? 'readonly' : '' ?>
+                        class="<?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?>" required />
                 </div>
             </div>
             <!-- TAG: Password -->
@@ -137,7 +145,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <div class="level-input">
                 <input type="radio" name="level" id="level" value="user" <?php echo $data['nivel'] == 'user' ? 'checked' : '' ?> <?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?> required>
                 <label for="user">Usuário Comum</label><br>
-                <input type="radio" name="level" id="level" value="admin" <?php echo $data['nivel'] == 'admin' ? 'checked' : '' ?> <?php echo $data['id_cliente'] == 1 ? 'disabled' : '' ?> required>
+                <input type="radio" name="level" id="level" value="admin" <?php echo $data['nivel'] == 'admin' ? 'checked' : '' ?> <?php echo $data['id_cliente'] == 1 ? 'readonly' : '' ?> required>
                 <label for="admin">Administrador</label>
             </div>
 

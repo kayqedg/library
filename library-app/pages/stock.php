@@ -26,7 +26,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 $result = $conexao->query($sql);
             } else if (!isset($_POST['correct']) && isset($_POST['add'])) {
                 $add = $_POST['add'];
-                $sql_update = "UPDATE livros SET qtd_estoque = qtd_estoque + $add  WHERE $id_book = '$id_book'";
+                $sql_update = "UPDATE livros SET qtd_estoque = $qtt_book + $add  WHERE id_livro = '$id_book'";
                 $result_update = $conexao->query($sql_update);
                 $result = $conexao->query($sql);
                 header('location: updateform.php');
@@ -178,6 +178,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                     <div class="edit-overlay hidden">
                         <div class="edit-modal">
                             <h1>Correção de estoque</h1>
+
                             <hr>
                             <form action="stock.php" method="post">
                                 <input type="hidden" name="id" id="book--id" value="0">
@@ -199,6 +200,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
                         </div>
                     </div>
+                    <h1>Estoque dos Livros</h1> <br>
+                    <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a> <br> <br>
                     <?php
                     $switcher = 0;
                     while ($data = $result->fetch_assoc()) {
@@ -275,6 +278,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     const submit = document.getElementById('.submit');
 
 
+
     for (let i = 0; i < btnsEdit.length; i++) {
         btnsEdit[i].addEventListener('click', function () {
             let dataArray = btnsEdit[i].id.split('-')
@@ -284,6 +288,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             inputId.value = dataArray[0]
             inputQtt.value = dataArray[1]
             numAdd.setAttribute('min', -dataArray[1])
+            console.log(inputId.value);
+            console.log(inputQtt.value);
 
 
 
