@@ -127,6 +127,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="demands.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Pedidos</a>
         </div>
         <div class="system-content">
+
+
             <div class="products-div">
 
                 <?php
@@ -143,6 +145,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 ";
                 }
                 ?>
+
             </div>
         </div>
     </main>

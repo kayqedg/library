@@ -21,10 +21,28 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     $user_level = $_SESSION['user_level'];
 
     if ($user_level == 'admin') {
-        $sqlTable = 'SELECT id_cliente, nome, email, cpf, nivel FROM clientes';
+        $sqlTable = 'SELECT id_cliente, nome, email, cpf, nivel FROM clientes 
+        ORDER BY nivel DESC, id_cliente';
         $resultTable = $conexao->query($sqlTable);
-    }
 
+        if (isset($_GET['search'])) {
+
+            $key_values = ['id_cliente', 'nome', 'email', 'cpf', 'nivel'];
+
+            [$search, $key] = explode('/', $_GET['search']);
+
+            if ($key >= 0 && $key <= 6) {
+                $sqlSearch = "SELECT id_cliente, nome, email, cpf, nivel 
+            FROM clientes 
+            WHERE 
+            UPPER($key_values[$key]) LIKE UPPER('%$search%')";
+                $resultTable = $conexao->query($sqlSearch);
+            } else {
+                header('location: system.php');
+            }
+        }
+
+    }
 
 
 
@@ -35,6 +53,10 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 // echo '<br>';
 // echo $name;
 ?>
+
+
+
+
 
 
 <!DOCTYPE html>
@@ -125,6 +147,47 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         background-color: rgba(255, 255, 255, 1);
         font-size: 2rem;
     } */
+
+    nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem;
+    }
+
+    nav .search-bar {
+        height: 40px;
+        width: 40%;
+        padding-inline: 10px;
+        /* border-radius: 2px; */
+        outline: none;
+        border: 1px #e0e0e0 solid;
+    }
+
+    nav .search-btn {
+        height: 40px;
+        width: 40px;
+        border-radius: 0 4px 4px 0;
+    }
+
+    nav .search-slct {
+        border: 1px #e0e0e0 solid;
+        height: 40px;
+        border-radius: 4px 0 0 4px;
+        padding-left: 10px;
+
+
+    }
+
+    nav .search-slct:focus {
+        outline: none;
+    }
+
+    .error-message {
+        margin-top: 3rem;
+        font-size: 1.5rem;
+    }
 </style>
 
 <body>
@@ -140,7 +203,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="demands.php" class="<?php echo levelVerify($_SESSION['user_level']) ?>">Pedidos</a>
         </div>
         <div class="system-content">
-
             <h1 class="title">Library</h1>
             <h2 class="title">Seja bem vindo <?php echo $name ?></h2>
             <p><?php echo $user_level ?></p>
@@ -148,7 +210,27 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <a href="exit.php" class="btn btn-danger">Sair</a> <br> <br>
             <div class="<?php echo levelVerify($user_level) ?>">
                 <h1>Usuários Ativos</h1>
-                <table class="table">
+
+                <!-- TESTE NAVBAR  -->
+                <nav>
+                    <select class="search-slct" name="" id="">
+                        <!-- id_cliente, nome, email, cpf, nivel  -->
+                        <option value="0">id</option>
+                        <option value="1">nome</option>
+                        <option value="2">email</option>
+                        <option value="3">CPF</option>
+                        <option value="4">nível</option>
+                    </select>
+                    <input class="search-bar" type="text" name="search-bar" id="" placeholder="Pesquisar">
+                    <button class="btn btn-info search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            height="16" fill="currentColor" onclick="" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg></button>
+                </nav>
+
+                <!-- ///////////////////// -->
+                <table class="table <?php echo $resultTable->num_rows == 0 ? 'hidden' : '' ?>">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -159,7 +241,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                             <th scope="col">*</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <ty>
                         <!-- <tr class="table-row-0">
                             <th scope="row">1</th>
                             <td>admin</td>
@@ -182,17 +264,23 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                             d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
                                     </svg></button> -->
                         <?php
-                        $classSwitch = 0;
-                        while ($data_table = $resultTable->fetch_assoc()) {
+                        if ($resultTable->num_rows == 0) {
+                            echo "<p class='error-message'>";
+                            echo "Não foi possível achar nenhum dado similar ao especificado. <a href='system.php'>Voltar</a>";
+                            echo "</p>";
+                        } else {
 
-                            echo "<tr class='table-row-" . $classSwitch . "'>";
-                            echo "<th scope='row'>$data_table[id_cliente]</th>";
-                            echo "<td>$data_table[nome]</td>";
-                            echo "<td>$data_table[email]</td>";
-                            echo "<td>$data_table[cpf]</td>";
-                            echo "<td>$data_table[nivel]</td>";
-                            echo "<td>";
-                            echo "<a href='edituser.php?id=$data_table[id_cliente]' class='btn btn-sm btn-primary'>
+                            $classSwitch = 0;
+                            while ($data_table = $resultTable->fetch_assoc()) {
+
+                                echo "<tr class='table-row-" . $classSwitch . "'>";
+                                echo "<th scope='row'>$data_table[id_cliente]</th>";
+                                echo "<td>$data_table[nome]</td>";
+                                echo "<td>$data_table[email]</td>";
+                                echo "<td>$data_table[cpf]</td>";
+                                echo "<td>$data_table[nivel]</td>";
+                                echo "<td>";
+                                echo "<a href='edituser.php?id=$data_table[id_cliente]' class='btn btn-sm btn-primary'>
                                     <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor'
                                         class='bi bi-pencil-square' viewBox='0 0 16 16'>
                                         <path
@@ -201,17 +289,17 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                             d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z' />
                                     </svg>
                                 </a>";
-                            echo "<button class='btn btn-sm btn-danger btn-delete' " . (($data_table['nivel'] == 'admin') ? 'disabled' : '') . " ><svg xmlns='http://www.w3.org/2000/svg' width='16'
+                                echo "<button class='btn btn-sm btn-danger btn-delete' " . (($data_table['nivel'] == 'admin') ? 'disabled' : '') . " ><svg xmlns='http://www.w3.org/2000/svg' width='16'
                                         height='16' fill='currentColor' class='bi bi-trash-fill' viewBox='0 0 16 16'>
                                         <path
                                             d='M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0' />
                                     </svg></button>";
-                            echo "</td>";
-                            echo "</tr>";
+                                echo "</td>";
+                                echo "</tr>";
 
-                            // if ($data_table['id_cliente'] > 1) {
+                                // if ($data_table['id_cliente'] > 1) {
                         
-                            echo "
+                                echo "
                             <div class='confirm-overlay hidden'> 
                             <div class='confirm-modal'>
                                 <h1>Deletar Usuário</h1>
@@ -229,11 +317,12 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                 </div>
                             </div>
                         </div>";
-                            // }
+                                // }
                         
 
 
-                            $classSwitch == 0 ? $classSwitch = 1 : $classSwitch = 0;
+                                $classSwitch == 0 ? $classSwitch = 1 : $classSwitch = 0;
+                            }
                         }
                         ?>
 
@@ -255,7 +344,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                 </div>
                             </div>
                         </div> -->
-                    </tbody>
+                    </ty>
                 </table>
             </div>
         </div>
@@ -284,6 +373,37 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             overlays[i].classList.remove('hidden')
         });
     }
+
+    // search-bar
+
+    const inputSearch = document.querySelector('.search-bar');
+    const btnSearch = document.querySelector('.search-btn');
+    const selectSearch = document.querySelector('.search-slct');
+
+    inputSearch.addEventListener('keypress', e => {
+        if (e.key === '/') {
+            e.preventDefault();
+        }
+        if (e.code === 'Enter') {
+            searchData();
+        }
+
+    });
+
+    btnSearch.addEventListener('click', function () {
+        searchData();
+    });
+
+    function searchData() {
+        if (inputSearch.value) {
+            window.location = `system.php?search=${inputSearch.value}/${selectSearch.value}`
+
+
+        } else {
+            window.location = `system.php`
+        }
+    }
+
 </script>
 
 </html>
