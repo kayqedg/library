@@ -8,9 +8,15 @@ if (isset($_POST['submit'])) {
   $senha = $_POST['password'];
   $cpf = $_POST['cpf'];
 
-  $result = $conexao->query("INSERT INTO clientes(nome, email, senha, cpf) 
+  $sql_test = "SELECT * FROM clientes WHERE nome = '$nome' OR email = '$email' OR cpf = '$cpf'";
+  $result_test = $conexao->query($sql_test);
+  if (!$result_test->num_rows > 0) {
+    $result = $conexao->query("INSERT INTO clientes(nome, email, senha, cpf) 
   VALUES ('$nome', '$email', '$senha', '$cpf')");
-  echo "<script>alert('usuário registrado!')</script>";
+    echo "<script>alert('usuário registrado!')</script>";
+  } else {
+    echo "<script>alert('Já existe um usuário com alguns desses dados')</script>";
+  }
 }
 
 ?>
@@ -39,7 +45,20 @@ if (isset($_POST['submit'])) {
   .form {
     width: 25vw;
     height: 80vh;
+    min-width: 300px;
+    min-height: 500px;
+
     box-shadow: 12px 12px 2px 1px rgb(92, 91, 91, 0.2);
+  }
+
+  .tip {
+    color: #ababab;
+    margin-bottom: -2rem;
+    padding: 0;
+  }
+
+  .form-div {
+    height: 100%;
   }
 </style>
 
@@ -62,7 +81,8 @@ if (isset($_POST['submit'])) {
         </div>
         <!-- TAG: Name Input -->
         <div class="input">
-          <input type="text" name="name" placeholder="&nbsp;name" required />
+          <input type="text" name="name" placeholder="&nbsp;username" required />
+          <p class="tip">*nome de usuário para acesso</p>
         </div>
       </div>
       <!-- TAG: CPF -->

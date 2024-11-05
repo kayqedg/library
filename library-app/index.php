@@ -65,7 +65,7 @@ if (isset($_POST['submit'])) {
         </div>
         <!-- TAG: Name Input -->
         <div class="input">
-          <input type="text" name="name" placeholder="&nbsp;name" id="" required />
+          <input type="text" name="name" placeholder="&nbsp;username" id="" required />
         </div>
       </div>
       <!-- TAG: Password -->

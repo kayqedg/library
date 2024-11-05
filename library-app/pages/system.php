@@ -166,9 +166,10 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     }
 
     nav .search-btn {
-        height: 40px;
-        width: 40px;
+        height: 41px;
+        width: 41px;
         border-radius: 0 4px 4px 0;
+        margin: 0;
     }
 
     nav .search-slct {
