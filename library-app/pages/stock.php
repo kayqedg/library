@@ -9,6 +9,31 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     $result = $conexao->query($sql);
 
 
+    if (isset($_GET['search'])) {
+
+        $key_values = ['id_livro', 'nome_livro', 'autor', 'categoria', 'ano_public'];
+
+        [$search, $key] = explode('/', $_GET['search']);
+
+        if ($key >= 0 && $key < 5) {
+            if ($key != 0) {
+                $sqlSearch = "SELECT * 
+        FROM livros
+        WHERE 
+        UPPER($key_values[$key]) LIKE UPPER('%$search%')";
+            } else {
+                $sqlSearch = "SELECT * 
+                FROM livros
+                WHERE 
+                $key_values[$key] = $search%'";
+            }
+            $result = $conexao->query($sqlSearch);
+        } else {
+            header('location: stock.php');
+        }
+    }
+
+
 
 
     if (isset($_POST['submit'])) {
@@ -16,7 +41,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             // NOTE: Achei que essa aparente redundância deixaria o código mais bem organizado 
             $id_book = $_POST['id'];
             $qtt_book = $_POST['qtt']; //var criada anteriormente para JS (provavelmente sem utilidade aqui)
-            $row = $result->fetch_assoc();
 
             if (isset($_POST['correct']) && !isset($_POST['add'])) {
                 $correct = $_POST['correct'];
@@ -31,12 +55,10 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 $result = $conexao->query($sql);
                 header('location: updateform.php');
             }
-
-
-
         } else {
             echo "<script>alert('Erro! Dois valores foram inseridos')</script>";
         }
+
     }
 
 } else {
@@ -125,8 +147,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         background-color: #F5F5F7;
         left: 50%;
         top: 50%;
-        width: 20%;
-        min-width: 20%;
+        width: 30vw;
+        min-width: 300px;
         transform: translate(-50%, -50%);
         padding: 1rem;
         padding-inline: 2rem;
@@ -165,7 +187,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             </a>
         </div>
         <div class="system-content">
-            <table class="table">
+            <table class="table <?php echo $result->num_rows == 0 ? 'hidden' : '' ?>">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -206,12 +228,38 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                         </div>
                     </div>
                     <h1>Estoque dos Livros</h1> <br>
+                    <!-- NAVBAR  -->
+                    <nav>
+                        <select class="search-slct" name="" id="">
+                            <!-- id_cliente, nome, email, cpf, nivel  -->
+                            <option value="0">id</option>
+                            <option value="1">nome</option>
+                            <option value="2">autor</option>
+                            <option value="3">gênero</option>
+                            <option value="4">ano</option>
+
+                        </select>
+                        <input class="search-bar" type="text" name="search-bar" id="" placeholder="Pesquisar">
+                        <button class="btn btn-info search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                height="16" fill="currentColor" onclick="" class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg></button>
+                    </nav>
+
+                    <!-- ///////////////////// -->
+
                     <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a> <br> <br>
                     <?php
-                    $switcher = 0;
-                    while ($data = $result->fetch_assoc()) {
-                        echo "<tr class='table-row-" . $switcher . "'>";
-                        echo "
+                    if ($result->num_rows == 0) {
+                        echo "<p class='error-message'>";
+                        echo "Não foi possível achar nenhum dado. <a href='stock.php'>Voltar</a>";
+                        echo "</p>";
+                    } else {
+                        $switcher = 0;
+                        while ($data = $result->fetch_assoc()) {
+                            echo "<tr class='table-row-" . $switcher . "'>";
+                            echo "
                         <th scope='row' class='table-cl'>$data[id_livro]</th>
                         <td><img class='table-img' src='../images/$data[foto]' alt=''></td>
                         <td class='table-cl'>$data[nome_livro]</td>
@@ -221,7 +269,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                         <td class='table-cl'>$data[ano_public]</td>
                         <td class='table-cl'>$data[qtd_estoque]</td>
                         ";
-                        echo "                        
+                            echo "                        
                         <td class='table-cl'>
                             <div class='buttons'>
                                 <button class='btn btn-sm btn-primary btn-edit' id='$data[id_livro]-$data[qtd_estoque]'>
@@ -235,8 +283,9 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                                 </button>
                             </div>
                         </td>";
-                        echo "</tr>";
-                        $switcher == 1 ? $switcher = 0 : $switcher = 1;
+                            echo "</tr>";
+                            $switcher == 1 ? $switcher = 0 : $switcher = 1;
+                        }
                     }
                     ?>
                 </tbody>
@@ -332,6 +381,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
 
 
+</script>
+<script src="../js/search-bar.js">
 </script>
 
 

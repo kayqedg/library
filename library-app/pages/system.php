@@ -31,7 +31,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
             [$search, $key] = explode('/', $_GET['search']);
 
-            if ($key >= 0 && $key <= 6) {
+            if ($key >= 0 && $key < 5) {
                 $sqlSearch = "SELECT id_cliente, nome, email, cpf, nivel 
             FROM clientes 
             WHERE 
@@ -147,48 +147,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         background-color: rgba(255, 255, 255, 1);
         font-size: 2rem;
     } */
-
-    nav {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        margin: 2rem;
-    }
-
-    nav .search-bar {
-        height: 40px;
-        width: 40%;
-        padding-inline: 10px;
-        /* border-radius: 2px; */
-        outline: none;
-        border: 1px #e0e0e0 solid;
-    }
-
-    nav .search-btn {
-        height: 41px;
-        width: 41px;
-        border-radius: 0 4px 4px 0;
-        margin: 0;
-    }
-
-    nav .search-slct {
-        border: 1px #e0e0e0 solid;
-        height: 40px;
-        border-radius: 4px 0 0 4px;
-        padding-left: 10px;
-
-
-    }
-
-    nav .search-slct:focus {
-        outline: none;
-    }
-
-    .error-message {
-        margin-top: 3rem;
-        font-size: 1.5rem;
-    }
 </style>
 
 <body>
@@ -212,7 +170,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             <div class="<?php echo levelVerify($user_level) ?>">
                 <h1>Usuários Ativos</h1>
 
-                <!-- TESTE NAVBAR  -->
+                <!-- NAVBAR  -->
                 <nav>
                     <select class="search-slct" name="" id="">
                         <!-- id_cliente, nome, email, cpf, nivel  -->
@@ -377,34 +335,35 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
     // search-bar
 
-    const inputSearch = document.querySelector('.search-bar');
-    const btnSearch = document.querySelector('.search-btn');
-    const selectSearch = document.querySelector('.search-slct');
+    // const inputSearch = document.querySelector('.search-bar');
+    // const btnSearch = document.querySelector('.search-btn');
+    // const selectSearch = document.querySelector('.search-slct');
 
-    inputSearch.addEventListener('keypress', e => {
-        if (e.key === '/') {
-            e.preventDefault();
-        }
-        if (e.code === 'Enter') {
-            searchData();
-        }
+    // inputSearch.addEventListener('keypress', e => {
+    //     if (e.key === '/') {
+    //         e.preventDefault();
+    //     }
+    //     if (e.code === 'Enter') {
+    //         searchData();
+    //     }
 
-    });
+    // });
 
-    btnSearch.addEventListener('click', function () {
-        searchData();
-    });
+    // btnSearch.addEventListener('click', function () {
+    //     searchData();
+    // });
 
-    function searchData() {
-        if (inputSearch.value) {
-            window.location = `system.php?search=${inputSearch.value}/${selectSearch.value}`
+    // function searchData() {
+    //     if (inputSearch.value) {
+    //         window.location = `system.php?search=${inputSearch.value}/${selectSearch.value}`
 
 
-        } else {
-            window.location = `system.php`
-        }
-    }
+    //     } else {
+    //         window.location = `system.php`
+    //     }
+    // }
 
 </script>
+<script src="../js/search-bar.js"></script>
 
 </html>
