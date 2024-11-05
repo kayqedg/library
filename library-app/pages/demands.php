@@ -85,6 +85,27 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && $_SESSION['user_
         </div>
         <div class="system-content">
             <h1>Ordens</h1> <br> <br>
+            <!-- TAG: CONTINUAR NAVBAR -->
+            <!-- NAVBAR  -->
+            <nav>
+                <select class="search-slct" name="" id="">
+                    <!-- id_cliente, nome, email, cpf, nivel  -->
+                    <option value="0">nome_livro</option>
+                    <option value="1">requisitor</option>
+                    <option value="2">data</option>
+                    <option value="3">gênero</option>
+                    <option value="4">ano</option>
+
+                </select>
+                <input class="search-bar" type="text" name="search-bar" id="" placeholder="Pesquisar">
+                <button class="btn btn-info search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" onclick="" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg></button>
+            </nav>
+
+            <!-- ///////////////////// -->
             <table class="table">
                 <thead>
                     <tr>
@@ -138,5 +159,6 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && $_SESSION['user_
     </main>
 
 </body>
+<script src="../js/search-bar.js"></script>
 
 </html>

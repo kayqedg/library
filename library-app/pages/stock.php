@@ -25,7 +25,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 $sqlSearch = "SELECT * 
                 FROM livros
                 WHERE 
-                $key_values[$key] = $search%'";
+                $key_values[$key] = $search";
             }
             $result = $conexao->query($sqlSearch);
         } else {
