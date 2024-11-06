@@ -22,7 +22,33 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && $_SESSION['user_
     ORDER BY pedidos.data_pedido DESC
     ";
     $result = $conexao->query($sql);
+
     // $data = $result->fetch_assoc();
+
+    if (isset($_GET['search'])) {
+        // LINETAG: TERMINAR AQUI
+        // NOTE: VER O QUE FAZER PARA IDENTIFICAÇÃO DO PEDIDO 
+        // (SEM SER POR ID, VER ALGUM MODO DE CRIAR UM CÓDIGO DE PEDIDO)
+        $key_values = ['livros.nome_livro', 'clientes.nome', ''];
+        [$search, $key] = explode('/', $_GET['search']);
+
+        if ($key >= 0 && $key < 5) {
+            if ($key != 0) {
+                $sqlSearch = "SELECT * 
+        FROM livros
+        WHERE 
+        UPPER($key_values[$key]) LIKE UPPER('%$search%')";
+            } else {
+                $sqlSearch = "SELECT * 
+                FROM livros
+                WHERE 
+                $key_values[$key] = $search";
+            }
+            $result = $conexao->query($sqlSearch);
+        } else {
+            header('location: stock.php');
+        }
+    }
 
 
 
@@ -122,7 +148,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && $_SESSION['user_
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr class='table-row-0'>
+                    <!--
+                    <tr class='table-row-0'>
                         <th class='table-cl' scope='row'>2</th>
                         <td class='table-cl'><img class='table-img' src='../images/1984.png' alt=''></td>
                         <td class='table-cl'>2</td>
@@ -132,7 +159,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password']) && $_SESSION['user_
                         <td class='table-cl'>4</td>
                         <td class='table-cl'>159.60</td>
                         <td class='table-cl'>2024-11-01 16:48:07</td>
-                    </tr> -->
+                    </tr>
+                    -->
 
                     <?php
                     $switcher = 0;
