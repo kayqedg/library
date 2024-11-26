@@ -8,6 +8,14 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     $sql = 'SELECT * FROM LIVROS ORDER BY nome_livro ASC';
 
     $result = $conexao->query($sql);
+
+    if (isset($_GET['search'])) {
+        $search = $_GET['search'];
+        $sqlSearch = "SELECT * FROM LIVROS WHERE UPPER(nome_livro) LIKE UPPER('%$search%') OR UPPER(autor) LIKE UPPER('%$search%')";
+
+        $result = $conexao->query($sqlSearch);
+    }
+
 } else {
     header('location: ../index.php');
 }
@@ -128,12 +136,32 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         </div>
         <div class="system-content">
 
+            <!-- NAVBAR  -->
+            <nav>
+                <input class="search-bar" type="text" name="search-bar" id="" placeholder="Pesquisar">
+                <button class="btn btn-info search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" onclick="" class="bi bi-search" viewBox="0 0 16 16">
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg></button>
+            </nav>
+
+            <!-- ///////////////////// -->
+            <?php
+            // NOTE: O objetivo da variável key é linkar este bloco de código com ou debaixo
+            $key = 0;
+            if ($result->num_rows == 0) {
+                echo ("<p class='error-message'>Não foi possível encontrar nenhum produto. <a href='shop.php'>Voltar</a></p>");
+                $key = 1;
+            }
+            ?>
 
             <div class="products-div">
 
                 <?php
-                while ($data = $result->fetch_assoc()) {
-                    echo "<a href='purchase.php?id=$data[id_livro]' class='prod-anchor'>
+                if ($key == 0) {
+                    while ($data = $result->fetch_assoc()) {
+                        echo "<a href='purchase.php?id=$data[id_livro]' class='prod-anchor'>
                     <div class='prod-box'>
                     <img class='prod-img' src='../images/$data[foto]' alt=''>
                     <div class='prod-data'>
@@ -143,6 +171,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                 </div>
                 </a>
                 ";
+                    }
+                    $key = 0;
                 }
                 ?>
 
@@ -151,7 +181,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     </main>
 </body>
 
-<script>
+<script src="../js/search-bar.js">
 </script>
 
 </html>

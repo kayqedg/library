@@ -13,6 +13,11 @@ inputSearch.addEventListener('keypress', e => {
   if (e.code === 'Enter') {
     searchData();
   }
+  if (selectSearch) {
+    if ((isNaN(e.key) || e.code === 'Space') && selectSearch.value == 0) {
+      e.preventDefault();
+    }
+  }
 });
 
 btnSearch.addEventListener('click', function () {
@@ -21,8 +26,12 @@ btnSearch.addEventListener('click', function () {
 
 function searchData() {
   if (inputSearch.value) {
-    window.location =
-      mainWin + `?search=${inputSearch.value}/${selectSearch.value}`;
+    if (selectSearch) {
+      window.location =
+        mainWin + `?search=${inputSearch.value}/${selectSearch.value}`;
+    } else {
+      window.location = mainWin + `?search=${inputSearch.value}`;
+    }
     console.log(window);
   } else {
     window.location = mainWin;

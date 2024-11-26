@@ -130,6 +130,64 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         justify-content: center;
     }
 
+    .radio {
+        text-align: left;
+    }
+
+    .number {
+        margin-left: 2rem;
+    }
+
+    .tip {
+        margin: -1rem;
+        color: #758694;
+    }
+
+    .book-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+
+
+    /* MODAIS */
+
+    /* LERROR: Corrigir modal aqui*/
+
+    .delete-modal {
+        position: absolute;
+        border-radius: 5px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2rem;
+        background-color: white;
+    }
+
+    .delete-overlay {
+        z-index: 2;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.4);
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px);
+        top: 0;
+        left: 0;
+    }
+
+    .delete-warning {
+        color: #C7C8CC;
+    }
+
+    .btn-delete {
+        float: right;
+    }
+
+    /* -- */
+
+
     .edit-overlay {
         z-index: 2;
         position: fixed;
@@ -156,18 +214,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         text-align: left;
     }
 
-    .radio {
-        text-align: left;
-    }
-
-    .number {
-        margin-left: 2rem;
-    }
-
-    .tip {
-        margin: -1rem;
-        color: #758694;
-    }
+    /* ///////////////////////////////////////// */
 </style>
 
 <body>
@@ -202,6 +249,22 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- LERROR: Corrigir modal aqui-->
+                    <div class="delete-overlay hidden">
+
+                        <div class="delete-modal">
+                            <p class="delete-warning">Essa ação não pode ser desfeita <br> (a não ser que o livro seja
+                                re-cadastrado)</p>
+                            <hr>
+                            <form action="#" method="post">
+
+                                <label for="book-id">ID do livro:</label>
+                                <input type="number" name="book-id" id=""> <br> <br>
+                                <input type="submit" value="Deletar" class="btn btn-danger btn-delete">
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="edit-overlay hidden">
                         <div class="edit-modal">
                             <h1>Correção de estoque</h1>
@@ -249,7 +312,13 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
                     <!-- ///////////////////// -->
 
-                    <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a> <br> <br>
+
+                    <div class="book-buttons">
+
+                        <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a> <br> <br>
+                        <a href="#" class="btn btn-secondary">Editar Livro</a>
+                        <a href="#" class="btn btn-danger">Deletar Livro</a>
+                    </div>
                     <?php
                     if ($result->num_rows == 0) {
                         echo "<p class='error-message'>";
@@ -315,6 +384,8 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
 
     // take id & quantity from book
+
+    //  LERROR: Corrigir modal aqui
 
     function clearAll() {
         enableCorr.checked = true
