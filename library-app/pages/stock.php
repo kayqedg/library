@@ -177,6 +177,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         left: 0;
     }
 
+
     .delete-warning {
         color: #C7C8CC;
     }
@@ -214,6 +215,14 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         text-align: left;
     }
 
+    .delete-modal--btns {
+        display: flex;
+        float: right;
+        gap: 10px;
+    }
+
+
+
     /* ///////////////////////////////////////// */
 </style>
 
@@ -248,7 +257,7 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
                         <th scope="col">*</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-body">
                     <!-- LERROR: Corrigir modal aqui-->
                     <div class="delete-overlay hidden">
 
@@ -260,7 +269,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
                                 <label for="book-id">ID do livro:</label>
                                 <input type="number" name="book-id" id=""> <br> <br>
-                                <input type="submit" value="Deletar" class="btn btn-danger btn-delete">
+                                <div class="delete-modal--btns">
+                                    <button class="btn btn-success delete-modal--back">Voltar</button>
+                                    <input type="submit" value="Deletar"
+                                        class="btn btn-danger btn-delete delete-modal--submit">
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -315,10 +328,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
 
                     <div class="book-buttons">
 
-                        <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a> <br> <br>
-                        <a href="#" class="btn btn-secondary">Editar Livro</a>
-                        <a href="#" class="btn btn-danger">Deletar Livro</a>
+                        <a href="bookregister.php" class="btn btn-primary">Cadastrar Livro</a>
+                        <a href="#" class="btn btn-secondary" id="btn--edit">Editar Livro</a>
+                        <a href="#" class="btn btn-danger" id="btn--delete">Deletar Livro</a>
                     </div>
+                    <br>
                     <?php
                     if ($result->num_rows == 0) {
                         echo "<p class='error-message'>";
@@ -402,11 +416,31 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
     const btnBack = document.querySelector('.btn-back');
     const submit = document.getElementById('.submit');
 
+    const tableBody = document.querySelector('.table-body')
 
 
-    for (let i = 0; i < btnsEdit.length; i++) {
-        btnsEdit[i].addEventListener('click', function () {
-            let dataArray = btnsEdit[i].id.split('-')
+
+    // for (let i = 0; i < btnsEdit.length; i++) {
+    //     btnsEdit[i].addEventListener('click', function () {
+    //         let dataArray = btnsEdit[i].id.split('-')
+    //         editOverlay.classList.remove('hidden')
+    //         document.body.style.overflow = 'hidden';
+    //         clearAll();
+    //         inputId.value = dataArray[0]
+    //         inputQtt.value = dataArray[1]
+    //         numAdd.setAttribute('min', -dataArray[1])
+    //         console.log(inputId.value);
+    //         console.log(inputQtt.value);
+    //     });
+    // }
+
+    tableBody.addEventListener('click', function (e) {
+        console.log(e.target);
+        if (e.target.classList.contains('.btn-edit')) {
+            debugger
+            console.log('botão');
+
+            let dataArray = e.target.id.split('-')
             editOverlay.classList.remove('hidden')
             document.body.style.overflow = 'hidden';
             clearAll();
@@ -415,12 +449,11 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
             numAdd.setAttribute('min', -dataArray[1])
             console.log(inputId.value);
             console.log(inputQtt.value);
+        }
+    })
 
 
 
-        });
-
-    }
 
     numAdd.addEventListener('blur', function () {
         console.log('macaco');
@@ -450,6 +483,32 @@ if (isset($_SESSION['name']) && isset($_SESSION['password'])) {
         document.body.style.overflow = 'auto';
     });
 
+    // General Buttons
+    const btnDelete = document.getElementById('btn--delete');
+    const btnEdit = document.getElementById('btn--edit')
+
+    //  General Buttons overlay elements
+
+    const overlayDelete = document.querySelector('.delete-overlay')
+
+    const btnDeleteBack = document.querySelector('.delete-modal--back')
+
+    // General Buttons events
+
+    btnDelete.addEventListener('click', function (e) {
+        overlayDelete.classList.remove('hidden')
+    })
+
+    btnDeleteBack.addEventListener('click', function (e) {
+        e.preventDefault();
+        overlayDelete.classList.add('hidden')
+    })
+
+    overlayDelete.addEventListener('click', function (e) {
+        if (e.target === this) {
+            overlayDelete.classList.add('hidden')
+        }
+    })
 
 
 </script>
